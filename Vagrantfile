@@ -23,8 +23,8 @@ json_path = ".drupal_lamp.json"
 data = JSON.parse(File.read(json_path))
 
 Vagrant.configure("2") do |config|
-  config.nfs.uid = 0
-  config.nfs.gid = 0
+  config.nfs.map_uid = 0
+  config.nfs.map_gid = 0
   config.vm.define :drupaldev do |server|
     server.ssh.forward_agent = true
     server.vm.box = "precise64"
@@ -43,6 +43,7 @@ Vagrant.configure("2") do |config|
     server.vm.network :private_network, ip: "192.168.50.5"
     server.vm.hostname = "drupal.local"
     server.vm.synced_folder "assets", "/assets", :nfs => true
+    server.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "chef/cookbooks"
       chef.roles_path = "chef/roles"
       chef.data_bags_path = "chef/data_bags"
