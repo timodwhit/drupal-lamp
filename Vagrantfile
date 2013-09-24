@@ -19,7 +19,7 @@ require 'json'
   downloaded by uncommenting the appropriate server.vm.box_url line below.
 
 =end
-json_path = ENV['DRUPAL_LAMP'].nil? ? ".drupal_lamp.json" : ENV['DRUPAL_LAMP']
+json_path = ".drupal_lamp.json"
 data = JSON.parse(File.read(json_path))
 
 Vagrant.configure("2") do |config|
@@ -27,21 +27,20 @@ Vagrant.configure("2") do |config|
     server.ssh.forward_agent = true
     server.vm.box = "precise64"
     #server.vm.box_url = "http://files.vagrantup.com/precise64_vmware_fusion.box"
-    #server.vm.box_url = "http://files.vagrantup.com/precise64.box"
+    server.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
     server.vm.provider "vmware_fusion" do |v|
       v.vmx["memsize"]  = "1024"
     end
 
     server.vm.provider :virtualbox do |v|
-      v.name = "drupal"
-      v.customize ["modifyvm", :id, "--memory", "1024"]
+      v.name = "abc"
+      v.customize ["modifyvm", :id, "--memory", "2048"]
     end
 
     server.vm.network :private_network, ip: "192.168.50.5"
     server.vm.hostname = "drupal.local"
-    server.vm.synced_folder "assets", "/assets", :nfs => false, :owner => "www-data", :group => "www-data"
-    server.vm.provision :chef_solo do |chef|
+    server.vm.synced_folder "assets", "/assets", :nfs => true
       chef.cookbooks_path = "chef/cookbooks"
       chef.roles_path = "chef/roles"
       chef.data_bags_path = "chef/data_bags"
