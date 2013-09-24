@@ -23,6 +23,8 @@ json_path = ".drupal_lamp.json"
 data = JSON.parse(File.read(json_path))
 
 Vagrant.configure("2") do |config|
+  config.nfs.uid = 0
+  config.nfs.gid = 0
   config.vm.define :drupaldev do |server|
     server.ssh.forward_agent = true
     server.vm.box = "precise64"
