@@ -40,9 +40,9 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--memory", "2048"]
     end
 
-    server.vm.network :private_network, ip: "192.168.50.5"
-    server.vm.hostname = "drupal.local"
+    server.vm.network :private_network, ip: "192.168.50.57"
     server.vm.synced_folder "assets", "/assets", :nfs => true
+    server.vm.hostname = "drupal.local"
     server.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "chef/cookbooks"
       chef.roles_path = "chef/roles"
