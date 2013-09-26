@@ -18,8 +18,8 @@
   "drupal": {
     "sites": {
       "abc": {
-        "deploy": false,
-        "clean": false,
+        "deploy": true,
+        "clean": true,
         "releases": 1,
         "files": "sites/default/files",
         "settings": "sites/default/settings.php",
