@@ -23,6 +23,10 @@
         "releases": 1,
         "files": "sites/default/files",
         "settings": "sites/default/settings.php",
+        "compass": {
+          "compile": true,
+          "watch_dir": "profiles/abc/themes/nmd_aurora"
+        },
         "repository": {
           "uri": "git@github.com:timodwhit/abc.git",
           "revision": "dev"
