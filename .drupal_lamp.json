@@ -29,7 +29,7 @@
         },
         "repository": {
           "uri": "git@github.com:timodwhit/abc.git",
-          "revision": "dev"
+          "revision": "basic_page_new"
         },
         "profile": "abc",
         "install": {
