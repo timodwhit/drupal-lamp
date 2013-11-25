@@ -21,7 +21,7 @@
   },
   "drupal": {
       "sites": {
-          "example": {
+          "abc": {
               "active": true,
               "deploy": {
                   "action": "clean",
@@ -34,13 +34,14 @@
                       "--clean-url": 1
                   },
                   "settings": {
-                      "profile": "standard",
-                      "files": "sites/default/files",
-                      "custom": "sites/default/example.settings.php",
-                      "settings": "sites/default/settings.php",
+                      "profile": "abc",
+                      "docroot": "docroot",
+                      "files": "docroot/sites/default/files",
+                      "custom": "docroot/sites/default/example.settings.php",
+                      "settings": "docroot/sites/default/settings.php",
                       "cookbook": "drupal",
                       "template": "example.settings.php.erb",
-                      "db_name": "example",
+                      "db_name": "abc",
                       "db_host": "localhost",
                       "db_prefix": "",
                       "db_driver": "mysql"
@@ -48,14 +49,14 @@
               },
               "repository": {
                   "host": "github.com",
-                  "uri": "https://github.com/drupal/drupal.git",
-                  "revision": "7.x"
+                  "uri": "git@github.com:timodwhit/abc.git",
+                  "revision": "dev"
               },
               "web_app": {
                   "80": {
                     "server_name": "drupal.local",
                     "rewrite_engine": "On",
-                    "docroot": "/srv/www/example/current"
+                    "docroot": "/srv/www/abc/current"
                   }
               }
           }
