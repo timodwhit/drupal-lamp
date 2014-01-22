@@ -9,5 +9,5 @@ cookbook 'openssl', '~> 1.1.0'
 cookbook 'php', '~> 1.2.6'
 cookbook 'ssh_known_hosts', '~> 1.1.0'
 cookbook 'sudo', '~> 2.2.2'
-cookbook "drupal", path: "/Users/timw/git/drupal"
-cookbook "node", '~> 1.0.1'
+cookbook 'nodejs', '~> 1.3.0'
+cookbook "drupal", git: "https://github.com/cyberswat/drupal", ref: "f0285adf49ab36207cbae44206c73ba8caed63eb"
