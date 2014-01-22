@@ -27,11 +27,13 @@ env_run_lists "_default" => [
                 "recipe[drupal::init]",
                 "recipe[sudo]",
                 "recipe[git]",
+                "recipe[node]",
                 "recipe[mysql::server]",
                 "recipe[drupal::ssh]",
                 "recipe[drupal::apache]",
                 "recipe[drupal::php]",
                 "recipe[drupal::drush]",
                 "recipe[drupal::mysql]",
+                "recipe[drupal::node]",
                 "recipe[drupal]",
               ]

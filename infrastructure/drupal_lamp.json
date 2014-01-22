@@ -22,6 +22,7 @@
       "theme_default": "mytheme",
       "base": "/srv/www"
   },
+
   "php": {
     "directives": {
       "memory_limit": "1024M",
