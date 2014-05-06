@@ -1,0 +1,22 @@
+{
+  "id": "users",
+  "development" : {
+    "grant_hosts": {
+      "localhost": {
+        "maintenance_user": "root",
+        "maintenance_password": "root",
+        "type": "mysql",
+        "databases": {
+          "example": {
+            "users": {
+              "drupal": {
+                "password": "drupal",
+                "privileges": "[:select, :insert, :update, :delete, :create, :drop, :index, :alter, :'lock tables', :'create temporary tables']"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
