@@ -17,6 +17,7 @@
     "recipe[sudo]",
     "recipe[git]",
     "recipe[nmddatabase::mysqlserver]",
+    "recipe[nmddatabase::createdatabase]",
     "recipe[nmddatabase::useraccess]",
     "recipe[drupal::ssh]",
     "recipe[drupal::apache]",
