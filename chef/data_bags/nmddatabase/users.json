@@ -11,7 +11,18 @@
             "users": {
               "drupal": {
                 "password": "drupal",
-                "privileges": "[:select, :insert, :update, :delete, :create, :drop, :index, :alter, :'lock tables', :'create temporary tables']"
+                "privileges": [
+                  "select",
+                  "insert",
+                  "update",
+                  "delete",
+                  "create",
+                  "drop",
+                  "index",
+                  "alter",
+                  "lock tables",
+                  "create temporary tables"
+                ]
               }
             }
           }

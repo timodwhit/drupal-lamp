@@ -4,6 +4,9 @@
   "chef_type": "role",
   "json_class": "Chef::Role",
   "override_attributes": {
+    "nmddatabase": {
+      "databases": ["example"]
+    },
     "drupal": {
       "sites": {
         "example": {
