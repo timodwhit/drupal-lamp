@@ -19,6 +19,7 @@
     "recipe[nmddatabase::mysqlserver]",
     "recipe[drupal::ssh]",
     "recipe[drupal::apache]",
+    "recipe[php]",
     "recipe[drupal::php]",
     "recipe[drupal::drush]",
     "recipe[drupal::mysql]",
