@@ -1,3 +1,5 @@
+source 'https://api.berkshelf.com'
+
 cookbook 'drupal', git: 'https://github.com/newmediadenver/drupal', branch: '2.x'
 cookbook 'nmddatabase', git: 'https://github.com/arknoll/nmddatabase', branch: 'master'
 cookbook 'apt', '~> 2.3.0'
