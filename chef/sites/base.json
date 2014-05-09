@@ -24,6 +24,6 @@
     "recipe[drupal::drush]",
     "recipe[drupal::mysql]",
     "recipe[nmddatabase::useraccess]",
-    "recipe[drupal]"
+    "recipe[drupal::deploy]"
   ]
 }
