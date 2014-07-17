@@ -1,65 +1,50 @@
 {
-  "db": {
-      "driver": "mysql",
-      "client_recipe": "mysql::client",
-      "root": "root",
-      "grant_hosts": [
-        "localhost"
-      ],
-      "users": {
-        "root": "root",
-        "replication": "replication",
-        "debian": "debian"
-      }
-  },
-  "server": {
-      "web_user": "www-data",
-      "web_group": "www-data",
-      "assets": "/srv/assets",
-      "theme_default": "mydcsd",
-      "base": "/srv/www"
-  },
   "drupal": {
-      "sites": {
-          "abc": {
-              "active": true,
-              "deploy": {
-                  "action": "clean",
-                  "releases": 1
+    "sites": {
+      "abc": {
+        "active": true,
+        "deploy": {
+          "action": ["deploy", "import"],
+          "releases": 3
+        },
+        "drupal": {
+          "version": "7.23",
+          "settings": {
+            "profile": "abc",
+            "docroot": "docroot",
+            "files": "docroot/sites/default/files",
+            "cookbook": "drupal",
+            "settings": {
+              "default": {
+                "location": "docroot/sites/default/settings.php"
               },
-              "drupal": {
-                  "version": 7.23,
-                  "install": {
-                      "install_configure_form.update_status_module": "'array(FALSE,FALSE)'",
-                      "--clean-url": 1
-                  },
-                  "settings": {
-                      "profile": "abc",
-                      "docroot": "docroot",
-                      "files": "docroot/sites/default/files",
-                      "custom": "docroot/sites/default/example.settings.php",
-                      "settings": "docroot/sites/default/settings.php",
-                      "cookbook": "drupal",
-                      "template": "example.settings.php.erb",
-                      "db_name": "abc",
-                      "db_host": "localhost",
-                      "db_prefix": "",
-                      "db_driver": "mysql"
-                  }
-              },
-              "repository": {
-                  "host": "github.com",
-                  "uri": "git@github.com:timodwhit/abc.git",
-                  "revision": "dev"
-              },
-              "web_app": {
-                  "80": {
-                    "server_name": "drupal.local",
-                    "rewrite_engine": "On",
-                    "docroot": "/srv/www/abc/current"
-                  }
+              "abc": {
+                "location": "profiles/abc/settings.php"
               }
+            },
+            "db_name": "abc",
+            "db_host": "localhost",
+            "db_prefix": "",
+            "db_driver": "mysql",
+            "db_file": "/vagrant/abc2.mysql"
           }
+        },
+        "repository": {
+          "host": "github.com",
+          "uri": "git@github.com:timodwhit/abc.git",
+          "revision": "dev",
+          "remotes": {
+            "speedytwenty": "git@github.com:speedytwenty/abc.git",
+            "upstream": "git@github.com:newmediadenver/abc.git"
+          }
+        },
+        "web_app": {
+          "80": {
+            "server_name": "abc.local",
+            "docroot": "/srv/www/abc/current/docroot"
+          }
+        }
       }
+    }
   }
 }
