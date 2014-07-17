@@ -41,13 +41,13 @@ Vagrant.configure("2") do |config|
     end
 
     server.vm.provider :virtualbox do |v|
-      v.name = "drupal"
+      v.name = "drupsAbc"
       v.customize ["modifyvm", :id, "--memory", "1024"]
     end
 
     server.vm.hostname = "drupal.local"
 
-    server.vm.network :private_network, ip: "192.168.50.5"
+    server.vm.network :private_network, ip: "192.168.50.6"
 
     # For Vagrant-provided synced folders
     # Ensure the second parameter (/assets) is the same as the Default['drupal']['server']['assets']

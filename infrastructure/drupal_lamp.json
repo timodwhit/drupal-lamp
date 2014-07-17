@@ -1,10 +1,10 @@
 {
   "drupal": {
     "sites": {
-      "example": {
+      "almonds": {
         "active": true,
         "deploy": {
-          "action": ["deploy", "install"],
+          "action": ["deploy", "import", "update"],
           "releases": 1
         },
         "drupal": {
@@ -14,33 +14,68 @@
             "--clean-url": 1
           },
           "settings": {
-            "profile": "standard",
-            "files": "sites/default/files",
+            "profile": "abc",
+            "files": "docroot/sites/default/files",
             "cookbook": "drupal",
+            "docroot": "docroot",
             "settings": {
               "default": {
-                "location": "sites/default/settings.php"
+                "location": "docroot/sites/default/settings.php"
+              },
+              "abc": {
+                "location": "profiles/abc/settings.php"
               }
             },
-            "db_name": "example",
+            "db_name": "abc",
             "db_host": "localhost",
             "db_prefix": "",
             "db_driver": "mysql",
-            "db_file": ""
+            "db_file": "/vagrant/abc7_7.mysql"
           }
         },
         "repository": {
           "host": "github.com",
-          "uri": "https://github.com/drupal/drupal.git",
-          "revision": "7.26"
+          "uri": "git@github.com:timodwhit/abc.git",
+          "revision": "dev"
         },
         "web_app": {
           "80": {
-            "server_name": "example.local",
+            "server_name": "almonds.local",
             "rewrite_engine": "On",
-            "docroot": "/srv/www/example/current"
+            "docroot": "/srv/www/almonds/current/docroot"
           }
         }
+      }
+    }
+  },
+  "nfs_exports": {
+    "/assets": {
+      "clients": {
+        "*": {
+          "writeable": true,
+          "sync": false,
+          "options": [
+            "no_subtree_check",
+            "all_squash",
+            "async"
+          ],
+          "anon_user_name": "www-data",
+          "anon_group_name": "www-data"
+        }
+      }
+    }
+  },
+  "drupal_frontend": {
+    "grunt": false,
+    "css_preprocessor":{
+      "/srv/www/almonds/current/docroot/profiles/abc/themes/nmd_aurora":{
+        "gems": [
+          "bundler"
+        ],
+        "commands": [
+          "bundle install && bundle update",
+          "bundle exec compass compile"
+        ]
       }
     }
   }
