@@ -78,6 +78,7 @@ default_attributes(
 )
 
 env_run_lists '_default' => [
+                'recipe[chef-solo-search]',
                 'recipe[apt]',
                 'recipe[build-essential]',
                 'recipe[drupal::init]',
