@@ -58,8 +58,8 @@ Vagrant.configure('2') do |config|
       chef.log_level = :info
       chef.data_bags_path = 'chef/data_bags'
       chef.roles_path = 'chef/sites'
-      chef.environments_path = 'chef/environments'
-      chef.environment = 'development'
+      # chef.environments_path = 'chef/environments'
+      # chef.environment = 'development'
       chef.add_role('base')
       chef.add_role('example')
     end

@@ -1,6 +1,8 @@
 {
   "id": "example",
-  "development" : {
+  "_default" : {
+    "db_user": "drupal",
+    "db_password": "drupal",
     "admin_user": "example_admin",
     "admin_pass": "admin",
     "mysql": {
