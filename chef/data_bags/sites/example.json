@@ -1,9 +1,13 @@
 {
   "id": "example",
-  "_default" : {
-    "db_user": "drupal",
-    "db_password": "drupal",
+  "development" : {
     "admin_user": "example_admin",
-    "admin_pass": "admin"
+    "admin_pass": "admin",
+    "mysql": {
+      "site_user": "drupal",
+      "site_password": "drupal",
+      "maintenance_user": "root",
+      "maintenance_password": "root"
+    }
   }
 }
