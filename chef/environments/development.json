@@ -4,23 +4,6 @@
   "json_class": "Chef::Environment",
   "chef_type": "environment",
   "override_attributes": {
-    "nfs_exports": {
-      "/srv/www/spi/current": {
-        "clients": {
-          "*": {
-            "writeable": true,
-            "sync": false,
-            "options": [
-              "no_subtree_check",
-              "all_squash",
-              "async"
-            ],
-            "anon_user_name": "www-data",
-            "anon_group_name": "www-data"
-          }
-        }
-      }
-    },
     "authorization": {
       "sudo": {
         "sudoers_defaults": [
@@ -88,7 +71,7 @@
     },
     "php": {
       "directives": {
-        "memory_limit": "-1",
+        "memory_limit": "256M",
         "upload_max_filesize": "8M",
         "post_max_size": "10M"
       },

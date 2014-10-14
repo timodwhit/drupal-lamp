@@ -1,0 +1,9 @@
+# Ignore all the files in this directory
+# We do this so you can add your roles and still pull in upstream changes
+*
+
+# These are default in the project
+!.gitignore
+!base.json
+!example.json
+!nfs_export.json

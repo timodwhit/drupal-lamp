@@ -1,181 +1,69 @@
-drupal-lamp
-=================
+VAMPD
+=====
 
-A vagrant build to run a Drupal LAMP stack utilizing best practices.
+vampd looks to become a one stop solution for local development and deployment
+strategy helping to standardize processes and dev flow without constricting the
+environments or needs of the developer. Our vision is to increase productivity
+by providing a stable, reproducible, virtualized environments that include
+meet all your drupal needs.
 
-Our vision is to aid the Drupal Community by removing the complexity of managing a development environment and to offer a bridge to maintain parity and best practices when going live.
+Installation Instructions
+-------------------------
 
-Requirements
-------------
-There are two requirements that you need to manage before you can begin.
-* You need to install virtualbox https://www.virtualbox.org/wiki/Downloads
-* You need to install vagrant 1.4.3 or greater http://www.vagrantup.com/downloads.html
+The install of vampd is not the easiest thing, but if you are familiar with the
+command line, should be fairly simple.
 
-Installation Simple:
-------------
-To install drupal lamp, you must have Vagrant and Virtual box already installed.
+First thing is first, you will need to install [vagrant](https://www.vagrantup.com/downloads.html)
+and install [virtualbox](https://www.virtualbox.org/wiki/Downloads). If you are on
+a Mac you will also need to install X-code from the App store (for Git).
 
+Now open your terminal of choice.
+
+The following commands are recommended and will help us trouble shoot if future
+issues arise.
 ```
-cd ~/
-mkdir ~/vagrant
+cd ~
+mkdir vagrant
 cd vagrant
-git clone git@github.com:newmediadenver/drupal-lamp.git
-cd drupal-lamp
-mkdir assets
+git clone https://github.com/vampd/vampd.git
+cd vampd
 vagrant plugin install vagrant-berkshelf --plugin-version '2.0.1'
 vagrant plugin install vagrant-omnibus
-```
-
-***Note:*** On OSX Mavericks, run: ```sudo /Library/StartupItems/VirtualBox/VirtualBox restart```
-
-```
 vagrant up
 ```
 
-During the install process. Edit ```/etc/hosts``` add the line:
+Now, you will see a bunch of text run and automate. During this time we recommend you
+edit your /etc/hosts file to add the proper site name and ip address so the site
+will resolve.
 
+To do this open a new tab in the terminal:
 ```
-192.168.50.5  example.local
+sudo nano /etc/hosts
 ```
 
-Once the vagrant process is complete, visit http://example.local
+By default the IP address found in the Vagrantfile is 192.168.50.5 So add this
+line to the file below all other lines.
 
-To work on the files locally, you will need to set up a method of file sharing. This
-is described in the below sections. *** Note:*** You will need to run ```vagrant
-destroy -f && vagrant up```after changing the settings. This *WILL* destroy your
-machine and work, so make sure it is versioned.
+example.local 192.168.50.5
 
-Installation Complex:
--------------
-### Custom Drupal Site(s)
-Drupal-lamp allows for you to easily work with multiple sites at once using pre-existing
-git repos.
-
-To start customizing your machine:
-
-Edit: ```infrastructure/drupal_lamp.json```
-
-Instructions: [Drupal](https://github.com/newmediadenver/drupal)
-
-***NOTE:*** Make sure that you have a data-bag associated with the each unique site id.
-See below for info about data-bags.
-
-Once your done: ```vagrant provision```
-
-### Other Cookbook Settings
-To control the settings of other cookbooks.
-
-Edit: ```infrastructure/drupal_lamp.json```
-
-Each Cookbook that is in the run list found here: ```chef/roles/drupal_lamp.rb```
-has associated hashes that can be manipulated and overrode through arrays in the
-JSON. Look in the berksfile for those cookbooks, and the repos for those settings.
-
-### To Add Cookbooks
-
-Edit: ```Berksfile``` and place call your desired cookbook.
-Instructions: [Berkshelf](http://berkshelf.com/)
-
-Edit: ```chef/roles/drupal_lamp.rb```
-Add the cookbook to the runlist at the bottom of the file.
-
-Edit: ```infrastructure/drupal_lamp.json```
-Add the array of data needed for the desired cookbook.
+Now go back to your original terminal tab. If the process has finished, visit
+http://example.local and check it out, a fresh Drupal install.
 
 
-## Chef Configuration
+And voila, you have a site installed!
 
-#### Data Bags (Hash or Mash)
-If you make a new or edit the existing site id in the drupal_lamp.json, you will
-need to create a databag for that site with the same id as the site name. Steps to do so:
+##Now let's have some fun.
 
-1. ```cp chef/data_bags/sites/example.json chef/data_bags/sites/[site_name].json```
-1. Now edit the [site_name].json and change id of the site id.
-1. Edit the info for your site.
+For those who don't know, vampd isn't about just spinning up a site and dumping
+a database to share across a team, actually it is quite against that. We aim to
+create reproducible environments and code from every aspect. The server should match
+what you are going live on, and your site should be able to deploy into production
+with a simple install, or if you have a live site, updates should be applied via
+update hooks, check out our desire for a standard dev process in the [wiki](http://github.com/vampd/vampd)
 
-## Vagrant Configuration
+[Existing Sites](https://github.com/vampd/vampd/wiki/Existing-Sites) <br />
+[Troubleshooting](https://github.com/vampd/vampd/wiki/Trobuleshooting) <br />
+[**Examples**](https://github.com/vampd/vampd-examples): This will provide a great
+set of examples for many different use cases. Please feel free to fork this and
+post you examples here.
 
-### Create a file share
-
-#### Drupal-NFS (Set up a NFS share on the VM, mount it on your local machine)
-This is the speediest option and is compatible with any system that can mount
-NFS shares.
-
-see [Drupal-NFS cookbook](https://github.com/arknoll/drupal-nfs)
-
-#### Vagrant-provided nfs (Vagrant sets up a NFS share on your local machine, then mounts it on the VM.)
-see [NFS in Vagrant Docs](https://docs.vagrantup.com/v2/synced-folders/nfs.html)
-
-1. Get required prerequisits (see Vagrant Doc)
-2. Add code/uncomment in Vagrantfile
-````
-# for Vagrant nfs support
-config.nfs.map_uid = 0
-config.nfs.map_gid = 0
-
-...
-# for Vagrant nfs support
-# Ensure the second parameter (/assets) is the same as the Default['drupal']['server']['assets']
-# destination in your drupal_lamp.json file
-server.vm.synced_folder "assets", "/assets", :nfs => true
-````
-Vagrant reload
-
-#### Vagrant synced folders (slower - Vagrant sets up a virtualbox share on your local machine, then mounts it on the VM.)
-see [Synced folders in Vagrant Docs](https://docs.vagrantup.com/v2/synced-folders/basic_usage.html)
-Add code/uncomment in Vagrantfile
-````
-# For Vagrant synced folders
-# Ensure the second parameter (/assets) is the same as the Default['drupal']['server']['assets']
-# destination in your drupal_lamp.json file
-server.vm.synced_folder "assets", "/assets", :nfs => false, :owner => "www-data", :group => "www-data"
-````
-
-
-Known "plug-ins" for drupal-lamp
---------------------------------
-## Typical plug-in usage
-1. Add the cookbook to the Berksfile
-2. Add the role to the chef/roles/drupal_lamp.rb
-3. Modify any attributes in your drupal_lamp.json if necessary
-
-### Drupal-NFS
-Allows you to expose and configure NFS shares on the VM.
-see [Drupal-NFS cookbook](https://github.com/arknoll/drupal-nfs)
-
-### Drupal-solr
-Installs Apache Solr on your virtual machine.
-see [Drupal solr cookbook](http://github.com/arknoll/drupal)
-
-### Drupal-codeception
-Installs [Codeception](http://codeception.com/) testing framework on your virtual machine.
-see [Drupal codeception cookbook](http://github.com/arknoll/drupal-codeception)
-
-### Drupal-frontend
-Adds CSS Preprocessing on spin up. More coolness to come.
-See [Drupal Frontend](http://github.com/timodwhit/drupal-frontend)
-
-### Create a self-signed ssl certificate
-See wiki [SSL in a dev environment](https://github.com/newmediadenver/drupal-lamp/wiki/SSL-in-a-dev-environment)
-
-
-Contributing
-------------
-
-We welcome contributed improvements and bug fixes via this workflow:
-
-1. Fork this repository
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new pull request
-
-
-If you would like a deeper understanding to utilize this project as a regular tool for individuals or teams, [you should help in the wiki](https://github.com/newmediadenver/drupal-lamp/wiki/_pages), [or simply provide feedback in the issue queue](https://github.com/newmediadenver/drupal-lamp/issues).
-## Why are you doing this? ##
-There's a big, complex problem that is instantly born when someone has the thought "I need to spin up a new drupal site."  Personally, I'm tired of having to spend any time thinking about how to do that. The conversation is relevant and it is gaining momentum. Send new conversations that should be listed here to [@cyberswat](https://twitter.com/cyberswat)
-
-* https://groups.drupal.org/node/314508#comment-958458
-* http://www.mediacurrent.com/blog/better-local-development-vagrant
-* https://github.com/proviso/proviso
-* https://github.com/Automattic/vip-quickstart
